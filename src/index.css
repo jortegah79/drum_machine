@@ -66,8 +66,12 @@ background-color:blue
     float:right;
 }
 @media screen and (max-width:768px){
+    .contenedor{
+        height:120vh;
+    }
     .maquina{
-        width:500px;
+        margin-top: 10px;
+        width:95%;
         height:700px;
         grid-template-areas: 
         "mandos"
