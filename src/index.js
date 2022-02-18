@@ -1,17 +1,92 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.css';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class Maquina extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tecla: '',
+      estilo: '',
+      encendido: false
+    }
+  }
+  render() {
+    return (
+      <div className="contenedor">
+        <div className="maquina">
+          <div className='botonera'>
+            <Tecla tecla="Q"/>
+            <Tecla tecla="W"/>
+            <Tecla tecla="E"/>
+            <Tecla tecla="A"/>
+            <Tecla tecla="S"/>
+            <Tecla tecla="D"/>
+            <Tecla tecla="Z"/>
+            <Tecla tecla="X"/>
+            <Tecla tecla="C"/>
+          </div>
+          <div className="mandos">
+            <Pantalla />
+            <Botones/>
+            <h2>by J.Ortega.</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function Pantalla() {
+  return (
+    <div>
+      <Display texto="Apagado"/>
+      <Display texto="Tipo estilo"/>
+      <Display texto="nombre tecla"/>      
+    </div>
+  );
+}
+function Botones(props){
+  return(
+<div>
+  <Seleccion />
+  <Power/>
+</div>
+  );
+}
+function Seleccion(props) {
+  return (
+    <div className='botones'>
+     <button>Drums</button>
+     <button>Piano</button>
+    </div>
+
+  );
+}
+
+function Power(props) {
+  return (
+    <div>
+      <button className='power'>ON/OFF</button>
+    </div>
+  );
+}
+
+function Tecla(props) {
+  return (
+    <div>
+      <button className="tecla">{props.tecla}</button>
+    </div>
+  );
+}
+function Display(props){
+  return(
+<div>
+  <div className='display'>{props.texto}</div>
+</div>
+  );
+}
+
+ReactDOM.render(<Maquina />, document.getElementById('root'));
+
