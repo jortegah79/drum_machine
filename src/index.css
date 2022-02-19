@@ -1,80 +1,90 @@
-h2{
-    color:#00f;
-    text-shadow: 2px 2px 3px #ea910b;    
+h2 {
+  color: #00f;
+  text-shadow: 2px 2px 3px #ea910b;
 }
-.contenedor{
-    background-color: #ea910b;
-    display:flex;
-    height:100vh;
-    
+.contenedor {
+  background-color: #ea910b;
+  display: flex;
+  height: 100vh;
 }
-.maquina{
-    width:700px;
-    height: 500px;
-    border:10px solid black;
-    margin:100px auto;
-    background:radial-gradient(#333333,#111111,#000000);
-    border-radius: 50px;
-    display:grid;
-    grid-template-areas: "botonera mandos";
-
+.maquina {
+  width: 700px;
+  height: 500px;
+  border: 10px solid black;
+  margin: 100px auto;
+  background: radial-gradient(#333333, #111111, #000000);
+  border-radius: 50px;
+  display: grid;
+  grid-template-areas: "botonera mandos";
 }
-.botonera{
-    grid-area: botonera;
-    display:grid;
-    padding:5%;
-    grid-template-areas: 
+.botonera {
+    margin:5px 10px;
+  grid-area: botonera;
+  display: grid;
+  padding: 5%;
+  grid-template-areas:
     "q w e"
     "a s d"
     "z x c";
-    
 }
-.tecla{
-width:100px;
-height:100px;
-border-radius: 50%;
-color:white;
-background-color:blue
-}
-
-.mandos{
-    grid-area:mandos;
-    display:grid;
-    margin:20px 20px;    
+.tecla {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  color: white;
+  background-color: blue;
+  font-size: large;
 }
 
-.display{
-    background:#999999;
+.mandos {
+  grid-area: mandos;
+  display: grid;
+  margin: 20px 20px;
+}
+
+.display {
+  background: #999999;
+  margin-top: 10px;
+  color: #222222;
+  text-transform: uppercase;
+  box-shadow: 1px 1px 5px 1px #555555;
+  font-size: large;
+  width: 100%;
+  text-align: center;
+  font-family: "Teko", sans-serif;
+}
+.botones {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.activo {
+  background: rgb(53, 192, 192);
+}
+.inactivo {
+  background: #555555;
+}
+.apagado {
+  background: red;
+}
+.power {
+  display: float;
+  float: right;
+}
+@media screen and (max-width: 768px) {
+  .contenedor {
+    height: 120vh;
+  }
+  .maquina {
     margin-top: 10px;
-    color:#222222;
-    text-transform: uppercase;
-    box-shadow: 1px 1px 5px 1px #555555;
-    font-size: large;
-    width:100%;
-    text-align:center;
-    font-family:'Teko', sans-serif;
- 
-}
-.botones{
-    width:100%;
-    display:grid;
-    grid-template-columns: auto auto;
-}
-
-.power{
-    display:float;
-    float:right;
-}
-@media screen and (max-width:768px){
-    .contenedor{
-        height:120vh;
-    }
-    .maquina{
-        margin-top: 10px;
-        width:95%;
-        height:700px;
-        grid-template-areas: 
-        "mandos"
-        "botonera";    
-    }
+    width: 95%;
+    height: 600px;
+    grid-template-areas:
+      "mandos"
+      "botonera";
+  }
+  .tecla {
+    width: 70px;
+    height: 70px;
+  }
 }

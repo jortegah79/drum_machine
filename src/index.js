@@ -7,29 +7,49 @@ class Maquina extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tecla: '',
-      estilo: '',
+      tecla: '---',
+      estilo: 'DRUMS',
       encendido: false
     }
+    this.encender = this.encender.bind(this);
+    this.cambioEstilo = this.cambioEstilo.bind(this);
+  }
+  encender() {
+    let estilo = this.state.encendido ? '---' : 'DRUMS';
+    this.setState(
+      {
+        encendido: !this.state.encendido,
+        estilo: estilo
+      }
+    )
+  };
+  cambioEstilo(e) {
+    let estilo=e.target.id;
+    this.setState(
+      {estilo:estilo}
+      );
+
   }
   render() {
+    let estadoEncendido = this.state.encendido ? "encendido" : "apagado";
+    console.log(estadoEncendido)
     return (
       <div className="contenedor">
         <div className="maquina">
           <div className='botonera'>
-            <Tecla tecla="Q"/>
-            <Tecla tecla="W"/>
-            <Tecla tecla="E"/>
-            <Tecla tecla="A"/>
-            <Tecla tecla="S"/>
-            <Tecla tecla="D"/>
-            <Tecla tecla="Z"/>
-            <Tecla tecla="X"/>
-            <Tecla tecla="C"/>
+            <Tecla tecla="Q" />
+            <Tecla tecla="W" />
+            <Tecla tecla="E" />
+            <Tecla tecla="A" />
+            <Tecla tecla="S" />
+            <Tecla tecla="D" />
+            <Tecla tecla="Z" />
+            <Tecla tecla="X" />
+            <Tecla tecla="C" />
           </div>
           <div className="mandos">
-            <Pantalla />
-            <Botones/>
+            <Pantalla power={estadoEncendido} estilo={this.state.estilo} tecla={this.state.tecla} />
+            <Botones encender={this.encender} cambioEstilo={this.cambioEstilo} estiloActual={this.state.estilo} encendido={this.state.encendido} />
             <h2>by J.Ortega.</h2>
           </div>
         </div>
@@ -37,29 +57,39 @@ class Maquina extends React.Component {
     );
   }
 }
-
-function Pantalla() {
+//la pantalla ya tiene datos.
+function Pantalla(props) {
   return (
     <div>
-      <Display texto="Apagado"/>
-      <Display texto="Tipo estilo"/>
-      <Display texto="nombre tecla"/>      
+      <Display texto={props.power} />
+      <Display texto={props.estilo} />
+      <Display texto={props.tecla} />
     </div>
   );
 }
-function Botones(props){
-  return(
-<div>
-  <Seleccion />
-  <Power/>
-</div>
+//display ya tiene datos.
+function Display(props) {
+  return (
+    <div>
+      <div className='display'>{props.texto}</div>
+    </div>
   );
 }
+//estilos y textos actualizados. falta evento
+function Botones(props) {
+  return (
+    <div>
+      <Seleccion cambioEstilo={props.cambioEstilo} estiloActual={props.estiloActual} />
+      <Power encender={props.encender} encendido={props.encendido} />
+    </div>
+  );
+}
+//estilos actualizados.
 function Seleccion(props) {
   return (
     <div className='botones'>
-     <button>Drums</button>
-     <button>Piano</button>
+      <button onClick={props.cambioEstilo} id="DRUMS"className={props.estiloActual === 'DRUMS' ? "activo" : "inactivo"}>Drums</button>
+      <button onClick={props.cambioEstilo} id="PIANO"className={props.estiloActual === 'PIANO' ? "activo" : "inactivo"}>Piano</button>
     </div>
 
   );
@@ -68,7 +98,7 @@ function Seleccion(props) {
 function Power(props) {
   return (
     <div>
-      <button className='power'>ON/OFF</button>
+      <button onClick={props.encender} className={props.encendido ? "activo power" : "apagado power"}>ON/OFF</button>
     </div>
   );
 }
@@ -80,13 +110,7 @@ function Tecla(props) {
     </div>
   );
 }
-function Display(props){
-  return(
-<div>
-  <div className='display'>{props.texto}</div>
-</div>
-  );
-}
+
 
 ReactDOM.render(<Maquina />, document.getElementById('root'));
 
