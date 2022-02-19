@@ -18,7 +18,7 @@ h2 {
   grid-template-areas: "botonera mandos";
 }
 .botonera {
-    margin:5px 10px;
+  margin: 5px 10px;
   grid-area: botonera;
   display: grid;
   padding: 5%;
@@ -27,14 +27,13 @@ h2 {
     "a s d"
     "z x c";
 }
-
 .tecla {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  color: white; 
+  color: white;
   font-size: large;
-  background-color: blue;
+  background:blue;
 }
 
 .mandos {
@@ -70,9 +69,9 @@ h2 {
 }
 .power {
   display: float;
-  margin-top:10px;
+  margin-top: 10px;
   float: right;
-  width:80px;
+  width: 80px;
 }
 @media screen and (max-width: 768px) {
   .contenedor {

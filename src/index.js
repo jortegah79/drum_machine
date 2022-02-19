@@ -127,11 +127,18 @@ class Maquina extends React.Component {
   }
   pulsaTecla(e) {
     let tec=this.state.encendido? e.target.id:'---';  
+    let botonPulsado=document.getElementById(e.target.id);
+    let color=this.state.encendido?"#ea910b":"blue";
+    botonPulsado.style.backgroundColor=color;
     this.setState(() => {
     return { tecla: tec }
-  });   
+  });  
+    setTimeout(()=>{
+      botonPulsado.style.backgroundColor='blue';
+    },300);
+    
   }
-componentDidUpdate(){
+componentDidUpdate(){  
   if (this.state.tecla !== '---') {
     let audio = new Audio(teclado[this.state.tecla][this.state.estilo].src);
     audio.play();
@@ -144,15 +151,15 @@ render() {
     <div className="contenedor">
       <div className="maquina">
         <div className='botonera'>
-          <Tecla pulsaTecla={this.pulsaTecla} id="q" tecla="Q" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="w" tecla="W" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="e" tecla="E" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="a" tecla="A" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="s" tecla="S" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="d" tecla="D" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="z" tecla="Z" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="x" tecla="X" />
-          <Tecla pulsaTecla={this.pulsaTecla} id="c" tecla="C" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="q" tecla="Q" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="w" tecla="W" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="e" tecla="E" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="a" tecla="A" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="s" tecla="S" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="d" tecla="D" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="z" tecla="Z" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="x" tecla="X" />
+          <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="c" tecla="C" />
         </div>
         <div className="mandos">
           <Pantalla power={estadoEncendido} estilo={this.state.estilo} tecla={this.state.tecla !== '---' ? teclado[this.state.tecla][this.state.estilo].nombre : '---'} />
@@ -166,6 +173,7 @@ render() {
 }
 //todo por hacer...
 function Tecla(props) {
+  
   return (
     <div>
       <button onClick={props.pulsaTecla} id={props.id} className="tecla">{props.tecla}</button>
