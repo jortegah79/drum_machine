@@ -178,9 +178,9 @@ class Maquina extends React.Component {
   }
 
   pulsaTecla(e) {
+    if(this.state.encendido){
     let botonPulsado=document.getElementById(e.target.id);
     let idTecla=this.state.encendido ? document.getElementById(e.target.id).innerText : '---';
-    //let audioActual =document.getElementById(idTecla).src;  
     botonPulsado.style.backgroundColor = "#ea910b";
     botonPulsado.style.boxShadow="1px 1px 3px 2px white";   
     let audio=document.getElementById(idTecla);
@@ -193,7 +193,7 @@ class Maquina extends React.Component {
       return { tecla: idTecla }
     });
     }  
-  
+  }
   componentDidMount() {
     window.addEventListener("keypress", (e) => this.handleKey(e))
   };
