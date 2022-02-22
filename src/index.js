@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-
 const teclado = {
-  q: {
-    letra: 'q',
+  Q: {
+    letra: 'Q',
     'DRUMS': {
       nombre: 'Heater-1',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
@@ -16,8 +15,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3'
     }
   },
-  w: {
-    letra: 'w',
+  W: {
+    letra: 'W',
     'DRUMS': {
       nombre: 'Heater-2',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'
@@ -27,8 +26,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3'
     }
   },
-  e: {
-    letra: 'e',
+  E: {
+    letra: 'E',
     'DRUMS': {
       nombre: 'Heater-3',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3'
@@ -38,8 +37,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3'
     }
   },
-  a: {
-    letra: 'a',
+  A: {
+    letra: 'A',
     'DRUMS': {
       nombre: 'Heater-4',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3'
@@ -49,8 +48,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
     }
   },
-  s: {
-    letra: 's',
+  S: {
+    letra: 'S',
     'DRUMS': {
       nombre: 'Clap',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3'
@@ -60,8 +59,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3'
     }
   },
-  d: {
-    letra: 'd',
+  D: {
+    letra: 'D',
     'DRUMS': {
       nombre: 'Open-HH',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
@@ -71,8 +70,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3'
     }
   },
-  z: {
-    letra: 'z',
+  Z: {
+    letra: 'Z',
     'DRUMS': {
       nombre: "Kick-n'-Hat",
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'
@@ -82,8 +81,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3'
     }
   },
-  x: {
-    letra: 'x',
+  X: {
+    letra: 'X',
     'DRUMS': {
       nombre: 'Kick',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'
@@ -92,8 +91,8 @@ const teclado = {
       src: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
     }
   },
-  c: {
-    letra: 'c',
+  C: {
+    letra: 'C',
     'DRUMS': {
       nombre: 'Closed-HH',
       src: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
@@ -138,81 +137,87 @@ class Maquina extends React.Component {
     );
   }
   handleKey(e) {
-    let teclaPresionada = e.key;
-    let correcta=false;
+    if(this.state.encendido){
+      let botonPulsado=document.getElementById(e.key.charAt(0).toLowerCase());
+    let teclaPresionada = e.key.charAt(0).toUpperCase();
+    
+    console.log(botonPulsado);
+    console.log(teclaPresionada);
+    let correcta = false;
     switch (teclaPresionada) {
-      case 'q':
-      case 'w':
-      case 'e':
-      case 'a':
-      case 's':
-      case 'd':
-      case 'z':
-      case 'x':
-      case 'c':
-        correcta=true;
+      case 'Q':
+      case 'W':
+      case 'E':
+      case 'A':
+      case 'S':
+      case 'D':
+      case 'Z':
+      case 'X':
+      case 'C':      
+        correcta = true;
         break;
-        default:          
-        correcta=false;
+      default:
+        correcta = false;
         break;
     }
-     if(correcta){
-       let tec = this.state.encendido ? teclaPresionada : '---';
-       let botonPulsado = document.getElementById(e.key);
-       let color = this.state.encendido ? "#ea910b" : "blue";
-     botonPulsado.style.backgroundColor = color;
-    
-     this.setState(() => {
-       return { tecla: tec }
-     });
-     setTimeout(() => {
-       botonPulsado.style.backgroundColor = 'blue';
-     }, 300);
-  }
-}
-
-  pulsaTecla(e) {
-    let tec = this.state.encendido ? e.target.id : '---';
-    let botonPulsado = document.getElementById(e.target.id);
-    let color = this.state.encendido ? "#ea910b" : "blue";
-    botonPulsado.style.backgroundColor = color;
-    this.setState(() => {
-      return { tecla: tec }
-    });
-    setTimeout(() => {
-      botonPulsado.style.backgroundColor = 'blue';
-    }, 300);
-
-  }
-  componentDidMount() {
-    window.addEventListener("keydown", (e) => this.handleKey(e))
-  };
-
-  componentDidUpdate() {
-    if (this.state.tecla !== '---') {
-      let audio = new Audio(teclado[this.state.tecla][this.state.estilo].src);
+    if (correcta) {
+      botonPulsado.style.backgroundColor = "#ea910b";
+      botonPulsado.style.boxShadow="1px 1px 3px 2px white";
+      this.setState(() => {
+        return { tecla: teclaPresionada }
+      });
+      setTimeout(() => {
+       botonPulsado.style.backgroundColor = "blue";
+       botonPulsado.style.boxShadow="2px 2px 3px 2px #4477aa";
+      }, 200);      
+      let audio=document.getElementById(teclaPresionada);
+      audio.currentTime=0;
       audio.play();
     }
   }
+  }
 
-  render() {
+  pulsaTecla(e) {
+    let botonPulsado=document.getElementById(e.target.id);
+    let idTecla=this.state.encendido ? document.getElementById(e.target.id).innerText : '---';
+    //let audioActual =document.getElementById(idTecla).src;  
+    botonPulsado.style.backgroundColor = "#ea910b";
+    botonPulsado.style.boxShadow="1px 1px 3px 2px white";   
+    let audio=document.getElementById(idTecla);
+    audio.play();
+    setTimeout(() => {
+      botonPulsado.style.backgroundColor = 'blue';
+      botonPulsado.style.boxShadow="2px 2px 3px 2px #4477aa";
+    }, 200);      
+        this.setState(() => {
+      return { tecla: idTecla }
+    });
+    }  
+  
+  componentDidMount() {
+    window.addEventListener("keypress", (e) => this.handleKey(e))
+  };
+
+   render() {
     let estadoEncendido = this.state.encendido ? "encendido" : "apagado";
+    let estiloActual = this.state.estilo === '---' ? 'DRUMS' : this.state.estilo;
     return (
       <div className="contenedor">
-        <div className="maquina" id="maquina">
-          <div className='botonera'>
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="q" tecla="q" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="w" tecla="w" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="e" tecla="e" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="a" tecla="a" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="s" tecla="s" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="d" tecla="d" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="z" tecla="z" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="x" tecla="x" />
-            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} id="c" tecla="c" />
+        <div className="maquina" id="drum-machine">
+        <div className='botonera'>
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.Q[estiloActual].src} id="Q" tecla="q" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.W[estiloActual].src} id="W" tecla="w" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.E[estiloActual].src} id="E" tecla="e" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.A[estiloActual].src} id="A" tecla="a" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.S[estiloActual].src} id="S" tecla="s" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.D[estiloActual].src} id="D" tecla="d" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.Z[estiloActual].src} id="Z" tecla="z" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.X[estiloActual].src} id="X" tecla="x" />
+            <Tecla tec={this.state.tecla} pulsaTecla={this.pulsaTecla} sonido={teclado.C[estiloActual].src} id="C" tecla="c" />
           </div>
           <div className="mandos">
-            <Pantalla power={estadoEncendido} estilo={this.state.estilo} tecla={this.state.tecla !== '---' ? teclado[this.state.tecla][this.state.estilo].nombre : '---'} />
+            <Pantalla
+              power={estadoEncendido} estilo={this.state.estilo} tecla={this.state.tecla !== '---' ? teclado[this.state.tecla][this.state.estilo].nombre : '---'} />
             <Botones encender={this.encender} cambioEstilo={this.cambioEstilo} estiloActual={this.state.estilo} encendido={this.state.encendido} />
             <h2>by J.Ortega.</h2>
           </div>
@@ -223,10 +228,11 @@ class Maquina extends React.Component {
 }
 //todo por hacer...
 function Tecla(props) {
-
   return (
     <div>
-      <button onClick={props.pulsaTecla} id={props.id} className="tecla">{props.tecla}</button>
+      <div onClick={props.pulsaTecla} id={props.tecla} className="tecla drum-pad">{props.id}
+        <audio id={props.id}  className="clip" src={props.sonido}></audio>
+      </div>
     </div>
   );
 }
@@ -237,7 +243,7 @@ function Pantalla(props) {
     <div>
       <Display texto={props.power} />
       <Display texto={props.estilo} />
-      <Display texto={props.tecla} />
+      <DisplayTecla texto={props.tecla} />
     </div>
   );
 }
@@ -245,7 +251,14 @@ function Pantalla(props) {
 function Display(props) {
   return (
     <div>
-      <div className='display'>{props.texto}</div>
+      <div id="display2" className='display'>{props.texto}</div>
+    </div>
+  );
+}
+function DisplayTecla(props) {
+  return (
+    <div>
+      <div id="display" className='display'>{props.texto}</div>
     </div>
   );
 }
@@ -276,8 +289,4 @@ function Power(props) {
     </div>
   );
 }
-
-
-
 ReactDOM.render(<Maquina />, document.getElementById('root'));
-
